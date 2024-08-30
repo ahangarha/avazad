@@ -1,5 +1,5 @@
 export default function validatePipeline(sentences) {
-  const validatePipeline = [];
+  const validatePipeline = [doesNotContainsDigits,];
 
   let invalids = [];
 
@@ -11,4 +11,11 @@ export default function validatePipeline(sentences) {
     valids: sentences,
     invalids,
   };
+}
+
+export function doesNotContainsDigits(sentences, invalids) {
+  const invalidSentences = sentences.filter((sentence) => /\d/.test(sentence))
+  const newInvalids = invalids.concat(invalidSentences)
+  const valids = sentences.filter((sentence) => !/\d/.test(sentence))
+  return [valids, newInvalids]
 }
