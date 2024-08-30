@@ -48,7 +48,7 @@ function App() {
       </div>
 
       <button className="self-center px-6 py-3 rounded font-semibold bg-sky-700 hover:bg-sky-800 text-white" type="button" onClick={process}>Process</button>
-      {!isPresent(validSentences) ? <p className="text-red-500 text-sm text-center">Click "process to generate valid sentences!</p> : '' }
+      {!isPresent(validSentences) ? <p className="text-red-500 text-sm text-center">Click process to generate valid sentences!</p> : '' }
 
       <div className="flex flex-col gap-1">
         <h3 className="font-semibold">Valid lines</h3>
