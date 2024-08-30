@@ -1,5 +1,9 @@
 export default function transformPipeline(sentences) {
-    const transformPipeline = [removeSpecialCharacters,removeRedundantSpaces,]
+    const transformPipeline = [
+        removeSpecialCharacters,
+        removeRedundantSpaces,
+        removeExtraWhitespace
+    ]
     transformPipeline.forEach((functor) => {
         sentences = functor(sentences)
     })
@@ -13,4 +17,8 @@ export function removeSpecialCharacters(sentences) {
 
 export function removeRedundantSpaces(sentences) {
     return sentences.map((sentence) => sentence.replace(/\s+/g, ' '))
+}
+
+export function removeExtraWhitespace(sentences) {
+    return sentences.map((sentence) => sentence.trim())
 }
