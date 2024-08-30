@@ -1,8 +1,7 @@
-# React + Vite
+# MCV Bulk Text
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple web application for facilitating bulk text import to Mozilla Common voice.
 
-Currently, two official plugins are available:
+## License
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+AGPL-3.0-or-later
