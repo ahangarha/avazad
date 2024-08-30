@@ -1,7 +1,13 @@
 {
   "name": "mcv-bulk-text",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "description": "A simple web application for facilitating bulk text import to Mozilla Common voice.",
+  "license": "AGPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://framagit.org/ahangarha/mcv-bulk-text/"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",
