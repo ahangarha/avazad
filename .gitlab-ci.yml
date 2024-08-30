@@ -1,0 +1,32 @@
+image: node:lts
+
+stages:
+  - build
+  - deploy
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+
+
+build:
+  stage: build
+  script:
+    - npm ci
+    - npm run build
+  artifacts:
+    paths:
+      - dist/
+  only:
+  - main
+
+pages:
+  stage: deploy
+  script:
+    - cp -r dist public
+  artifacts:
+    paths:
+      - public/
+  only:
+  - main
