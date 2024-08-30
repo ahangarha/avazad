@@ -40,7 +40,7 @@ function App() {
   }
 
   return (
-    <div className="flex flex-col gap-4 p-4 my-8">
+    <div className="flex flex-col gap-4 p-4 my-8 max-w-2xl mx-auto">
       <div className="flex flex-col gap-1">
         <h3 className="font-semibold">Input text</h3>
         <textarea className="border shadow p-2" value={rawText} onChange={handleRawTextChange} name="rawText" id="rawText" rows="7" placeholder="Enter your raw text">
