@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { validateRawText } from "./utils/validator";
 import { generateTsvFile, downloadBlob } from "./utils/tsvGenerator";
 
@@ -9,6 +9,7 @@ function App() {
   const [source, setSource] = useState('')
   const [rationale, setRationale] = useState('')
   const [domain, setDomain] = useState('')
+  const [isValidForm, setIsValidForm] = useState(false)
 
   const handleRawTextChange = (e) => setRawText(e.target.value);
   const handleValidSentencesChange = (e) => setValidSentences(e.target.value.split('\n'));
@@ -17,10 +18,20 @@ function App() {
   const handleRationaleChange = (e) => setRationale(e.target.value);
   const handleDomainChange = (e) => setDomain(e.target.value);
 
+  const isPresent = (input) => {
+    if (input instanceof Array) return input.length > 0
+    if (typeof input === 'string') return input.replace(/\s/g, '').length > 0
+  }
+
   const handleExportbuttonClick = () => {
     const tsvBlob = generateTsvFile(validSentences, source, rationale, domain)
     downloadBlob(tsvBlob, 'bulk.tsv')
   }
+
+  useEffect(() => {
+    setIsValidForm(isPresent(source) && isPresent(rationale) && isPresent(validSentences))
+
+  }, [source, rationale, validSentences])
 
   const process = () => {
     const { valids, invalids } = validateRawText(rawText)
@@ -36,7 +47,8 @@ function App() {
         </textarea>
       </div>
 
-      <button className="bg-gray-200" type="button" onClick={process}>Process</button>
+      <button className="self-center px-6 py-3 rounded font-semibold bg-sky-700 hover:bg-sky-800 text-white" type="button" onClick={process}>Process</button>
+      {!isPresent(validSentences) ? <p className="text-red-500 text-sm text-center">Click "process to generate valid sentences!</p> : '' }
 
       <div className="flex flex-col gap-1">
         <h3 className="font-semibold">Valid lines</h3>
@@ -56,10 +68,12 @@ function App() {
       <div className="flex flex-col gap-1">
         <label htmlFor="source">Source <span className="text-red-500">*</span></label>
         <input className="border shadow p-2 grow" value={source} onChange={handleSourceChange} type="text" name="source" id="source" required placeholder="Example: Jane Doe (self)" />
+        {!isPresent(source) ? <p className="text-red-500 text-sm">Source is required!</p> : '' }
       </div>
       <div className="flex flex-col gap-1">
         <label htmlFor="rationale">Additional rationale for open license <span className="text-red-500">*</span></label>
         <input className="border shadow p-2 grow" value={rationale} onChange={handleRationaleChange} type="text" name="rationale" id="rationale" required placeholder="Example: My own submission, copyright waived" />
+        {!isPresent(rationale) ? <p className="text-red-500 text-sm">Rationale is required!</p> : '' }
       </div>
       <div className="flex flex-col gap-1">
         <label htmlFor="domain">Domain (optional)</label>
@@ -77,7 +91,7 @@ function App() {
         <input className="border shadow p-2 grow" value={domain} onChange={handleDomainChange} type="text" name="domain" id="domain" required placeholder="Example: General" />
       </div>
 
-      <button className="bg-gray-200" onClick={handleExportbuttonClick} type="button">Export as TSV file</button>
+      <button className="self-center px-6 py-3 rounded font-semibold bg-green-700 hover:bg-green-800 disabled:bg-gray-500 text-white" onClick={handleExportbuttonClick} disabled={!isValidForm} type="button">Export as TSV file</button>
     </div>
   )
 }
