@@ -1,6 +1,7 @@
 image: node:lts
 
 stages:
+  - test
   - build
   - deploy
 
@@ -9,6 +10,17 @@ cache:
   paths:
     - node_modules/
 
+jest:
+  stage: test
+  script:
+    - npm ci
+    - npm run test
+
+lint:
+  stage: test
+  script:
+    - npm ci
+    - npm run lint
 
 build:
   stage: build
