@@ -3,6 +3,7 @@ export default function validatePipeline(sentences) {
     doesNotContainsSpecialCharacters,
     doesNotContainsDigits,
     doesNotExceed15words,
+    acceptsOnlyPersianCharacters,
   ];
 
   let invalids = [];
@@ -37,6 +38,24 @@ export function doesNotExceed15words(sentences, invalids) {
 
   sentences.forEach((sentence) => {
     if (sentence.split(' ').length < 15){
+      newValids.push(sentence)
+    } else {
+      newInvalids.push(sentence)
+    }
+  })
+
+  return [
+    newValids,
+    invalids.concat(newInvalids)
+  ]
+}
+
+export function acceptsOnlyPersianCharacters(sentences, invalids) {
+  const newValids = []
+  const newInvalids = []
+
+  sentences.forEach((sentence) => {
+    if (/^[ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی !؟،]+$/.test(sentence)){
       newValids.push(sentence)
     } else {
       newInvalids.push(sentence)
