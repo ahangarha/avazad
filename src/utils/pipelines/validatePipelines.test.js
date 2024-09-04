@@ -1,4 +1,9 @@
-import { doesNotContainsDigits, doesNotContainsSpecialCharacters, doesNotExceed15words } from "./validatePipelines";
+import {
+    acceptsOnlyPersianCharacters,
+    doesNotContainsDigits,
+    doesNotContainsSpecialCharacters,
+    doesNotExceed15words
+} from "./validatePipelines";
 
 describe('doesNotContainsDigits', () => {
     it('does not contains digits', () => {
@@ -63,4 +68,34 @@ describe('doesNotExceed15words', () => {
         expect(actual_valids).toEqual(expected_valids)
         expect(actual_invalids).toEqual(expected_invalids)
     })
+})
+
+describe('acceptsOnlyPersianCharacters', () => {
+    it('accepts only Persian characters and punctuations', () => {
+        const input = [
+            'فقط فارسی',
+            'فارسی با اعداد ۱۲۳',
+            'واقعا؟!',
+            'فارسی و english',
+            'فارسی و عربي'
+        ]
+
+        const exisitingInvalides = ['123']
+
+        const expected_valids = [
+            'فقط فارسی',
+            'واقعا؟!',
+        ]
+        const expected_invalids = [
+            ...exisitingInvalides,
+            'فارسی با اعداد ۱۲۳',
+            'فارسی و english',
+            'فارسی و عربي'
+        ]
+
+        const [actual_valids, actual_invalids] = acceptsOnlyPersianCharacters(input, exisitingInvalides)
+
+        expect(actual_valids).toEqual(expected_valids)
+        expect(actual_invalids).toEqual(expected_invalids)
+    });
 })
