@@ -75,6 +75,7 @@ describe('acceptsOnlyPersianCharacters', () => {
         const input = [
             'فقط فارسی',
             'فارسی با اعداد ۱۲۳',
+            'نیم‌فاصله',
             'واقعا؟!',
             'فارسی و english',
             'فارسی و عربي'
@@ -84,6 +85,7 @@ describe('acceptsOnlyPersianCharacters', () => {
 
         const expected_valids = [
             'فقط فارسی',
+            'نیم‌فاصله',
             'واقعا؟!',
         ]
         const expected_invalids = [
