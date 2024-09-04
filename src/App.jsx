@@ -43,7 +43,7 @@ function App() {
     <div className="flex flex-col gap-4 p-4 my-8 max-w-2xl mx-auto">
       <div className="flex flex-col gap-1">
         <h3 className="font-semibold">Input text</h3>
-        <textarea className="border shadow p-2" value={rawText} onChange={handleRawTextChange} name="rawText" id="rawText" rows="7" placeholder="Enter your raw text">
+        <textarea className="border shadow p-2" value={rawText} onChange={handleRawTextChange} name="rawText" id="rawText" rows="7" placeholder="Enter your raw text" dir="auto">
         </textarea>
       </div>
 
@@ -52,12 +52,12 @@ function App() {
 
       <div className="flex flex-col gap-1">
         <h3 className="font-semibold">Valid lines</h3>
-        <textarea className="border shadow p-2" value={validSentences.join('\n')} onChange={handleValidSentencesChange} rows="7" name="invalidSentences" id="invalidSentences"></textarea>
+        <textarea className="border shadow p-2" value={validSentences.join('\n')} onChange={handleValidSentencesChange} rows="7" name="invalidSentences" id="invalidSentences" dir="auto"></textarea>
       </div>
 
       <div className="flex flex-col gap-1">
         <h3 className="font-semibold">Invalid lines</h3>
-        <textarea className="border shadow p-2" value={invalidSentences.join('\n')} onChange={handleInvalidSentencesChange} rows="7" name="validSentences" id="validSentences"></textarea>
+        <textarea className="border shadow p-2" value={invalidSentences.join('\n')} onChange={handleInvalidSentencesChange} rows="7" name="validSentences" id="validSentences" dir="auto"></textarea>
       </div>
 
       <div className="flex flex-col gap-1">
