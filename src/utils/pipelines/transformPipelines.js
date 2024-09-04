@@ -5,7 +5,8 @@ export default function transformPipeline(sentences) {
         removeSpecialCharacters,
         removeRedundantSpaces,
         removeExtraWhitespace,
-        changeNumbersToText
+        changeNumbersToText,
+        tranformSpaceToZwnj,
     ]
     transformPipeline.forEach((functor) => {
         sentences = functor(sentences)
@@ -49,4 +50,18 @@ export function changeNumbersToText(sentences) {
 
 export function transformArabicToPersian(sentences) {
     return sentences.map((sentence) => starkString(sentence).trim().persianChar().toString())
+}
+
+export function tranformSpaceToZwnj(sentences) {
+    return sentences.map((sentence) => starkStringHalfSpace(sentence))
+}
+
+// temporary fix for halfSpace to add support for ها
+function starkStringHalfSpace(value) {
+    const existingHalfSpaceResult = starkString(value).halfSpace().toString()
+
+    // Zwnj for ها
+    const zwnj = '\u200C';
+    const haRegex = new RegExp(/ (های?ی?)/g)
+    return (existingHalfSpaceResult.replace(haRegex, `${zwnj}$1`))
 }

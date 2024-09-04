@@ -3,6 +3,7 @@ import {
     removeExtraWhitespace,
     removeRedundantSpaces,
     removeSpecialCharacters,
+    tranformSpaceToZwnj,
     transformArabicToPersian
 } from "./transformPipelines"
 
@@ -174,6 +175,26 @@ describe('arabicToPersianTransform', () => {
 
         const expected = ['یک']
         const actual = transformArabicToPersian(inputSentences)
+
+        expect(actual).toEqual(expected)
+    });
+});
+
+
+describe('tranformSpaceToZwnj', () => {
+    it('replaces spaces with zwnj', () => {
+        const inputSentences = [
+            'او درخت ها را می برد',
+            'این گل های زیبا را می بینی؟',
+            'چه کتاب هایی خوانده ای',
+        ]
+
+        const expected = [
+            'او درخت‌ها را می‌برد',
+            'این گل‌های زیبا را می‌بینی؟',
+            'چه کتاب‌هایی خوانده‌ای',
+        ]
+        const actual = tranformSpaceToZwnj(inputSentences)
 
         expect(actual).toEqual(expected)
     });

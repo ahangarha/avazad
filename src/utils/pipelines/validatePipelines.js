@@ -55,7 +55,10 @@ export function acceptsOnlyPersianCharacters(sentences, invalids) {
   const newInvalids = []
 
   sentences.forEach((sentence) => {
-    if (/^[ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی !؟،]+$/.test(sentence)){
+    // This regex includes only Persian characters, basic punctuations, space, zwnj, comma
+    const persianCharRegex = /^[الپتثجچجخدذرزژسشصضطظعغفقکگلمنوهی !؟،\u200C]+$/
+
+    if (persianCharRegex.test(sentence)){
       newValids.push(sentence)
     } else {
       newInvalids.push(sentence)
