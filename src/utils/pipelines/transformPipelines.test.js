@@ -2,7 +2,8 @@ import {
     changeNumbersToText,
     removeExtraWhitespace,
     removeRedundantSpaces,
-    removeSpecialCharacters
+    removeSpecialCharacters,
+    transformArabicToPersian
 } from "./transformPipelines"
 
 describe('removeSpecialCharacters', () => {
@@ -166,3 +167,14 @@ describe('changeNumbersToText', () => {
         expect(actual).toEqual(expected)
     });
 })
+
+describe('arabicToPersianTransform', () => {
+    it('Should convert arabic yah and kaf to Persian', () => {
+        const inputSentences = ['يك']
+
+        const expected = ['یک']
+        const actual = transformArabicToPersian(inputSentences)
+
+        expect(actual).toEqual(expected)
+    });
+});

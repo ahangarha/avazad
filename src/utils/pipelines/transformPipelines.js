@@ -1,4 +1,4 @@
-import starkString from 'starkstring';
+import starkString from "starkstring"
 
 export default function transformPipeline(sentences) {
     const transformPipeline = [
@@ -45,4 +45,8 @@ export function changeNumbersToText(sentences) {
         return processedText
     })
 
+}
+
+export function transformArabicToPersian(sentences) {
+    return sentences.map((sentence) => starkString(sentence).trim().persianChar().toString())
 }
