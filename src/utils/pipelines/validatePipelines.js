@@ -1,5 +1,9 @@
 export default function validatePipeline(sentences) {
-  const validatePipeline = [doesNotContainsSpecialCharacters,doesNotContainsDigits,];
+  const validatePipeline = [
+    doesNotContainsSpecialCharacters,
+    doesNotContainsDigits,
+    doesNotExceed15words,
+  ];
 
   let invalids = [];
 
@@ -25,4 +29,22 @@ export function doesNotContainsSpecialCharacters(sentences, invalids) {
   const newInvalids = invalids.concat(invalidSentences)
   const valids = sentences.filter((sentence) => !/[@#$^&*+=]/.test(sentence))
   return [valids, newInvalids]
+}
+
+export function doesNotExceed15words(sentences, invalids) {
+  const newValids = []
+  const newInvalids = []
+
+  sentences.forEach((sentence) => {
+    if (sentence.split(' ').length < 15){
+      newValids.push(sentence)
+    } else {
+      newInvalids.push(sentence)
+    }
+  })
+
+  return [
+    newValids,
+    invalids.concat(newInvalids)
+  ]
 }
