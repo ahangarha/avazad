@@ -1,8 +1,11 @@
+import starkString from 'starkstring';
+
 export default function transformPipeline(sentences) {
     const transformPipeline = [
         removeSpecialCharacters,
         removeRedundantSpaces,
-        removeExtraWhitespace
+        removeExtraWhitespace,
+        changeNumbersToText
     ]
     transformPipeline.forEach((functor) => {
         sentences = functor(sentences)
@@ -21,4 +24,25 @@ export function removeRedundantSpaces(sentences) {
 
 export function removeExtraWhitespace(sentences) {
     return sentences.map((sentence) => sentence.trim())
+}
+
+export function changeNumbersToText(sentences) {
+    return sentences.map((sentence) => {
+        const englishNumbersText = starkString(sentence).englishNumber().toString()
+        const englishNumbers = englishNumbersText.match(/\d+/g) ?? []
+
+        const persianNumbers = englishNumbers.map((number) => {
+            if (number.length > 4) return number;
+
+            return starkString(number).digitsToWords().toString()
+        })
+
+        let processedText = englishNumbersText
+        for (let i in englishNumbers) {
+            processedText = processedText.replaceAll(englishNumbers[i], persianNumbers[i])
+        }
+
+        return processedText
+    })
+
 }
