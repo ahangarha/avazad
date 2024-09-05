@@ -15,8 +15,10 @@ export function downloadBlob(blob, filename) {
   }, 150);
 }
 
-export function generateTsvFile(validSentences, source, rationale, domain) {
+export function generateTsvFile(batches) {
   const rows = []
+
+  // tsv header for MCV
   rows.push([
     'Sentence (mandatory)',
     'Source (mandatory)',
@@ -25,14 +27,8 @@ export function generateTsvFile(validSentences, source, rationale, domain) {
     'Domain (optional'
   ])
 
-  validSentences.forEach((sentence) => {
-    rows.push([
-      sentence,
-      source,
-      rationale,
-      '',
-      domain
-    ])
+  batches.forEach((batch) => {
+    rows.push(...batch.data)
   })
 
   const tsvString = rows.map((row) => row.join('\t')).join('\n');
