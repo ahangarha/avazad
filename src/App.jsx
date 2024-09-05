@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { validateRawText } from "./utils/validator";
+import { validateRawText } from "./utils/textProcessor";
 import { generateTsvFile, downloadBlob } from "./utils/tsvGenerator";
 
 function App() {
