@@ -84,7 +84,7 @@ describe('changeNumbersToText', () => {
         ]
 
         const expected = ['بیست', 'بیست و یک', 'بیست و دو', 'بیست و سه', 'بیست و چهار', 'بیست و پنج', 'بیست و شش', 'بیست و هفت', 'بیست و هشت', 'بیست و نه',
-            'سی', 'چهل', 'پنجاه', 'شصت' ,'هفتاد' ,'هشتاد' ,'نود' ,'نود و یک' ,'نود و پنج' ,'نود و نه'
+            'سی', 'چهل', 'پنجاه', 'شصت', 'هفتاد', 'هشتاد', 'نود', 'نود و یک', 'نود و پنج', 'نود و نه'
         ]
 
         const actual = changeNumbersToText(two_digits)
@@ -167,7 +167,17 @@ describe('changeNumbersToText', () => {
 
         expect(actual).toEqual(expected)
     });
-})
+
+    it('bogus conversion to english digits', () => {
+        const input = ['و عدد بیشتر از چهار رقم فارسی هم ۱۲۳۴۵ است']
+
+        const expected = ['و عدد بیشتر از چهار رقم فارسی هم ۱۲۳۴۵ است']
+
+        const actual = changeNumbersToText(input)
+
+        expect(actual).toEqual(expected)
+    });
+});
 
 describe('arabicToPersianTransform', () => {
     it('Should convert arabic yah and kaf to Persian', () => {
