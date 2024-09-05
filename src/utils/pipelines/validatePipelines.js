@@ -56,7 +56,9 @@ export function acceptsOnlyPersianCharacters(sentences, invalids) {
 
   sentences.forEach((sentence) => {
     // This regex includes only Persian characters, basic punctuations, space, zwnj, comma
-    const persianCharRegex = /^[الپتثجچجخدذرزژسشصضطظعغفقکگلمنوهی !؟،\u200C]+$/
+    // As we know that Persian ZWJ are must be matched with \u200C and \u202C
+    // eslint-disable-next-line no-misleading-character-class
+    const persianCharRegex = /^[\u0622\u0627\u0628\u067E\u062A-\u062C\u0686\u062D-\u0632\u0698\u0633-\u063A\u0641\u0642\u06A9\u06AF\u0644-\u0648\u06CC\u202C\u064B\u064C\u064E-\u0652\u0621\u0623-\u0626\u0629\u0654\u200C !؟،]+$/gumi
 
     if (persianCharRegex.test(sentence)){
       newValids.push(sentence)

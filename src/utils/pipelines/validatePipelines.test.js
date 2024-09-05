@@ -100,4 +100,52 @@ describe('acceptsOnlyPersianCharacters', () => {
         expect(actual_valids).toEqual(expected_valids)
         expect(actual_invalids).toEqual(expected_invalids)
     });
-})
+
+    it('bogus text', () => {
+        const input = ['تغییرات رو فرستادم بالا']
+
+        const expected_valids = ['تغییرات رو فرستادم بالا']
+        const expected_invalids = []
+
+        const [actual_valids, actual_invalids] = acceptsOnlyPersianCharacters(input, [])
+
+        expect(actual_valids).toEqual(expected_valids)
+        expect(actual_invalids).toEqual(expected_invalids)
+    });
+
+    it('check comma', () => {
+        const input = ['اینجا، ویرگول داریم']
+
+        const expected_valids = ['اینجا، ویرگول داریم']
+        const expected_invalids = []
+
+        const [actual_valids, actual_invalids] = acceptsOnlyPersianCharacters(input, [])
+
+        expect(actual_valids).toEqual(expected_valids)
+        expect(actual_invalids).toEqual(expected_invalids)
+    });
+
+    it('check hamza', () => {
+        const input = ['سؤال', 'مسأله', 'انشاء', 'جرئت', 'ثقة الإسلام']
+
+        const expected_valids = ['سؤال', 'مسأله', 'انشاء', 'جرئت', 'ثقة الإسلام']
+        const expected_invalids = []
+
+        const [actual_valids, actual_invalids] = acceptsOnlyPersianCharacters(input, [])
+
+        expect(actual_valids).toEqual(expected_valids)
+        expect(actual_invalids).toEqual(expected_invalids)
+    });
+
+    it('check sar-e-ya', () => {
+        const input = ['مسئلهٔ من']
+
+        const expected_valids = ['مسئلهٔ من']
+        const expected_invalids = []
+
+        const [actual_valids, actual_invalids] = acceptsOnlyPersianCharacters(input, [])
+
+        expect(actual_valids).toEqual(expected_valids)
+        expect(actual_invalids).toEqual(expected_invalids)
+    });
+});
