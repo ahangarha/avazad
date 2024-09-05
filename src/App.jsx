@@ -267,7 +267,7 @@ function App() {
               disabled={totalValidSentences < 1000}
               type="button"
             >
-              Export as TSV file
+              ساخت پروندهٔ TSV
             </button>
           </div>
         </section>
