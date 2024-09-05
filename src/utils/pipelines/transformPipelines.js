@@ -5,6 +5,7 @@ export default function transformPipeline(sentences) {
         removeSpecialCharacters,
         removeRedundantSpaces,
         removeExtraWhitespace,
+        transformArabicToPersian,
         changeNumbersToText,
         tranformSpaceToZwnj,
     ]
@@ -29,21 +30,21 @@ export function removeExtraWhitespace(sentences) {
 
 export function changeNumbersToText(sentences) {
     return sentences.map((sentence) => {
-        const englishNumbersText = starkString(sentence).englishNumber().toString()
-        const englishNumbers = englishNumbersText.match(/\d+/g) ?? []
+        //Regex for english, arabic and persian numbers
+        const allNumbers = sentence.match(/[\d\u0660-\u0669\u06F0-\u06F9]+/gu) ?? []
 
-        const persianNumbers = englishNumbers.map((number) => {
+        const persianNumbers = allNumbers.map((number) => {
             if (number.length > 4) return number;
-
-            return starkString(number).digitsToWords().toString()
+            return starkString(number).englishNumber().digitsToWords().toString()
         })
 
-        let processedText = englishNumbersText
-        for (let i in englishNumbers) {
-            processedText = processedText.replaceAll(englishNumbers[i], persianNumbers[i])
+        let processedText = sentence
+        for (let i in allNumbers) {
+            processedText = processedText.replaceAll(allNumbers[i], persianNumbers[i])
         }
 
         return processedText
+
     })
 
 }
