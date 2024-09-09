@@ -89,7 +89,7 @@ function App() {
 
   return (
     <>
-      <div className="flex flex-col lg:grid lg:grid-cols-3 h-screen max-h-screen">
+      <div className="flex flex-col lg:grid lg:grid-cols-3 min-h-screen lg:max-h-screen">
         <section className="flex flex-col justify-between overflow-hidden m-2 border-2 border-rose-800 bg-rose-800/15 rounded-xl">
           <header className="px-4 py-8 bg-rose-800 text-center">
             <h1 className="font-black text-4xl">آوازاد</h1>
