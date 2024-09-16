@@ -1,12 +1,9 @@
-import { useEffect, useState, useCallback } from "react"
+import { useEffect, useState } from "react"
 import starkString from "starkstring"
 import { validateRawText } from "./utils/textProcessor";
 import { generateTsvFile, downloadBlob } from "./utils/tsvGenerator";
-import AppInfoHeader from "./AppInfoHeader";
-import { MIN_EXPRESSIONS_NO } from "./constants";
 
 import Batches from "./Batches"
-import Button from "./Button";
 
 function createBatch(validSentences, source, rationale, domain) {
   const data = []
@@ -42,31 +39,18 @@ function App() {
   const [batches, setBatches] = useState([])
   const [totalValidSentences, setTotalValidSentences] = useState(0)
 
-  const handleRawTextChange = useCallback(
-    (e) => setRawText(e.target.value),
-    [setRawText]
-  );
-  const handleValidSentencesChange = useCallback(
-    (e) => setValidSentences(e.target.value.split('\n')),
-    [setValidSentences]
-  );
+  const handleRawTextChange = (e) => setRawText(e.target.value);
+  const handleValidSentencesChange = (e) => setValidSentences(e.target.value.split('\n'));
   const handleSourceChange = (e) => setSource(e.target.value);
-  const handleRationaleChange = useCallback(
-    (e) => setRationale(e.target.value),
-    [setRationale]
-  );
-  const handleDomainChange = useCallback(
-    (e) => setDomain(e.target.value),
-    [setDomain]
-  );
+  const handleRationaleChange = (e) => setRationale(e.target.value);
+  const handleDomainChange = (e) => setDomain(e.target.value);
 
   const isPresent = (input) => {
     if (input instanceof Array) return input.length > 0
     if (typeof input === 'string') return input.replace(/\s/g, '').length > 0
   }
   
-  const handleSaveBatchButtonClick = useCallback(
-  () => {
+  const handleSaveBatchButtonClick = () => {
     const newBatch = createBatch(
       validSentences,
       source,
@@ -76,28 +60,18 @@ function App() {
 
     setBatches([...batches, newBatch])
     setValidSentences([])
-  },
-  [
-    setBatches,
-    setValidSentences,
-    batches,
-    validSentences,
-    source,
-    rationale,
-    domain
-  ]
-  );
+  }
 
-  const handleExportbuttonClick = useCallback(() => {
+  const handleExportbuttonClick = () => {
     const tsvBlob = generateTsvFile(batches)
     const timestamp = Date.now()
     const filename = `mcv-bulk-text-${timestamp}.tsv`
     downloadBlob(tsvBlob, filename)
-  }, [batches]);
+  }
 
   useEffect(() => {
     setIsValidForm(isPresent(source) && isPresent(rationale) && isPresent(validSentences))
-  }, [source, rationale, validSentences]);
+  }, [source, rationale, validSentences])
 
   useEffect(() => {
     const numberOfValidSentences = batches.reduce((previousSum, currentBatch) => {
@@ -105,18 +79,29 @@ function App() {
     }, 0)
     setTotalValidSentences(numberOfValidSentences)
   },
-  [batches]);
+  [batches])
 
-  const process = useCallback(() => {
+  const process = () => {
     const { valids, invalids } = validateRawText(rawText)
     setValidSentences(validSentences.concat(valids))
     setRawText(invalids.join('\n'))
-  }, [rawText, validSentences]);
+  }
 
   return (
+    <>
       <div className="flex flex-col lg:grid lg:grid-cols-3 min-h-screen lg:max-h-screen">
         <section className="flex flex-col justify-between overflow-hidden m-2 border-2 border-rose-800 bg-rose-800/15 rounded-xl">
-          <AppInfoHeader />
+          <header className="px-4 py-8 bg-rose-800 text-center">
+            <h1 className="font-black text-4xl">آوازاد</h1>
+            <p>
+              ابزاری برای تسهیل پردازش متن انبوه برای وارد کردن به پروژهٔ
+              <br />
+              <a href="https://commonvoice.mozilla.org/fa" className="underline" target="_blank" rel="noopener noreferrer">
+                آوای مشترک موزیلا
+              </a>
+            </p>
+          </header>
+
           <div className="flex flex-col gap-4 p-4 max-w-2xl mx-auto overflow-auto">
             <div className="flex flex-col gap-1">
               <h3 className="font-semibold">متن ورودی</h3>
@@ -133,12 +118,13 @@ function App() {
             </div>
 
             <div className="flex flex-col gap-1">
-              <Button
-                classNames="bg-sky-700 hover:bg-sky-800"
+              <button
+                className="px-6 py-3 rounded font-semibold bg-sky-700 hover:bg-sky-800 text-white"
+                type="button"
                 onClick={process}
               >
                 تبدیل و استخراج عبارات معتبر
-              </Button>
+              </button>
               <div className="flex gap-2 text-sm text-slate-500">
                 <span>
                   🛈
@@ -186,7 +172,7 @@ function App() {
               id="validSentences"
               dir="auto"
               readOnly
-            />
+            ></textarea>
           </div>
 
           <div className="flex flex-col gap-1">
@@ -243,13 +229,14 @@ function App() {
               placeholder="مثلا: General" />
           </div>
           <div className="flex flex-col gap-1">
-              <Button
-                classNames="bg-sky-700 disabled:text-slate-300 hover:bg-sky-800"
+              <button
+                className="px-6 py-3 rounded font-semibold bg-sky-700 disabled:bg-gray-500 disabled:text-slate-300 hover:bg-sky-800 text-white"
+                type="button"
                 onClick={handleSaveBatchButtonClick}
                 disabled={!isValidForm}
               >
                 ساخت دسته
-              </Button>
+              </button>
               <div className="flex gap-2 text-sm text-slate-500">
                 <span>
                   🛈
@@ -269,21 +256,24 @@ function App() {
 
         <section className="flex flex-col gap-8 justify-between overflow-auto m-2 p-4 border-2 border-green-800 bg-green-800/15 rounded-xl">
           <Batches batches={batches} />
+
           <div className="flex items-center justify-between">
             <div>
-              مجموعه عبارات: {totalValidSentences}/{MIN_EXPRESSIONS_NO.persianNumber()}
+              مجموعه عبارات: {totalValidSentences}/1000
             </div>
-            <Button
-              className="rounded bg-green-700 hover:bg-green-800"
+            <button
+              className="self-center px-6 py-3 rounded font-semibold bg-green-700 hover:bg-green-800 disabled:bg-gray-500 text-white"
               onClick={handleExportbuttonClick}
-              disabled={totalValidSentences < MIN_EXPRESSIONS_NO}
+              disabled={totalValidSentences < 1000}
+              type="button"
             >
               ساخت پروندهٔ TSV
-            </Button>
+            </button>
           </div>
         </section>
       </div>
+    </>
   )
 }
 
-export default App;
+export default App
