@@ -13,6 +13,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
     "preview": "vite preview",
     "test": "jest"
   },

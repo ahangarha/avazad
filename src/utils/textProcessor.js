@@ -1,6 +1,6 @@
-import filterPipeline from "./pipelines/filterPipelines";
-import transformPipeline from "./pipelines/transformPipelines";
-import validatePipeline from "./pipelines/validatePipelines";
+import filterPipeline from './pipelines/filterPipelines'
+import transformPipeline from './pipelines/transformPipelines'
+import validatePipeline from './pipelines/validatePipelines'
 
 export function validateRawText(rawText) {
   return runPipelines(splitStringIntoArray(rawText))

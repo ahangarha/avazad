@@ -4,18 +4,18 @@ export default function validatePipeline(sentences) {
     doesNotContainsDigits,
     doesNotExceed15words,
     acceptsOnlyPersianCharacters,
-  ];
+  ]
 
-  let invalids = [];
+  let invalids = []
 
   validatePipeline.forEach((functor) => {
-    [sentences, invalids] = functor(sentences, invalids);
-  });
+    [sentences, invalids] = functor(sentences, invalids)
+  })
 
   return {
     valids: sentences,
     invalids,
-  };
+  }
 }
 
 export function doesNotContainsDigits(sentences, invalids) {
