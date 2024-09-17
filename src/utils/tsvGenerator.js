@@ -1,18 +1,18 @@
 
 export function downloadBlob(blob, filename) {
-  const url = URL.createObjectURL(blob);
+  const url = URL.createObjectURL(blob)
   
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename || 'download'; 
-  document.body.appendChild(a);
+  const a = document.createElement('a')
+  a.href = url
+  a.download = filename || 'download' 
+  document.body.appendChild(a)
 
-  a.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+  a.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }))
 
-  document.body.removeChild(a);  
+  document.body.removeChild(a)  
   setTimeout(() => {
-      URL.revokeObjectURL(url);
-  }, 150);
+    URL.revokeObjectURL(url)
+  }, 150)
 }
 
 export function generateTsvFile(batches) {
@@ -31,7 +31,7 @@ export function generateTsvFile(batches) {
     rows.push(...batch.data)
   })
 
-  const tsvString = rows.map((row) => row.join('\t')).join('\n');
+  const tsvString = rows.map((row) => row.join('\t')).join('\n')
 
   return new Blob([tsvString], { type: 'text/tab-separated-values' })
 }

@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
 
 const Batch = PropTypes.shape({
@@ -19,7 +19,7 @@ function Batches({ batches }) {
 
 Batches.propTypes = {
   batches: PropTypes.arrayOf(Batch).isRequired,
-};
+}
 
 function SingleBatch({ batch }) {
   return (
@@ -34,11 +34,11 @@ function SingleBatch({ batch }) {
         <p className="overflow-hidden bg-black/10 p-1 rounded w-full">موضوع: {batch.domain || 'وارد نشده!'}</p>
       </div>
     </div>
-  );
+  )
 }
 
 SingleBatch.propTypes = {
   batch: Batch
-};
+}
 
-export default Batches;
+export default Batches

@@ -1,4 +1,4 @@
-import { validateRawText } from "./textProcessor";
+import { validateRawText } from './textProcessor'
 
 function arraysHaveSameElements(arr1, arr2) {
   if (arr1.length !== arr2.length) return false
@@ -8,7 +8,7 @@ function arraysHaveSameElements(arr1, arr2) {
 }
 
 describe('validateRawText', () => {
-  beforeEach(() => { });
+  beforeEach(() => { })
 
   it('returns an object of valids and invalids sentenses', () => {
     expect(validateRawText('')).toEqual(
@@ -16,8 +16,8 @@ describe('validateRawText', () => {
         valids: expect.any(Array),
         invalids: expect.any(Array),
       })
-    );
-  });
+    )
+  })
 
   it('system test', () => {
     const input = `
@@ -69,5 +69,5 @@ describe('validateRawText', () => {
 
     expect(arraysHaveSameElements(actual_valids, expected_valids)).toBe(true)
     expect(arraysHaveSameElements(actual_invalids, expected_invalids)).toBe(true)
-  });
-});
+  })
+})
