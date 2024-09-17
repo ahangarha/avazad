@@ -271,7 +271,7 @@ function App() {
           <Batches batches={batches} />
           <div className="flex items-center justify-between">
             <div>
-              مجموعه عبارات: {totalValidSentences}/{MIN_EXPRESSIONS_NO.persianNumber()}
+              مجموعه عبارات: {totalValidSentences}/{MIN_EXPRESSIONS_NO}
             </div>
             <Button
               className="rounded bg-green-700 hover:bg-green-800"
