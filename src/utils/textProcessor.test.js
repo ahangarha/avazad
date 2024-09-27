@@ -1,4 +1,4 @@
-import { validateRawText } from './textProcessor'
+import { validateRawText, splitStringIntoArray } from './textProcessor'
 
 function arraysHaveSameElements(arr1, arr2) {
   if (arr1.length !== arr2.length) return false
@@ -6,6 +6,29 @@ function arraysHaveSameElements(arr1, arr2) {
   return arr1.every(element => arr2.includes(element))
       && arr2.every(element => arr1.includes(element))
 }
+
+describe('splitStringIntoArray', () => {
+  it('splits string into array', () => {
+    const input = 'سلام اینجا نقطه داشت.'
+    const expected = ['سلام اینجا نقطه داشت.']
+
+    expect(splitStringIntoArray(input)).toEqual(expected)
+  })
+
+  it('splits string into array with multiple sentences', () => {
+    const input = 'سلام اینجا نقطه داشت. واقعا؟!'
+    const expected = ['سلام اینجا نقطه داشت.', 'واقعا؟!']
+
+    expect(splitStringIntoArray(input)).toEqual(expected)
+  })
+
+  it('splits string into array with multiple sentences and multiple periods', () => {
+    const input = 'سلام اینجا نقطه داشت. واقعا؟! امسال سال ۱۴۰۳ است'
+    const expected = ['سلام اینجا نقطه داشت.', 'واقعا؟!', 'امسال سال ۱۴۰۳ است']
+
+    expect(splitStringIntoArray(input)).toEqual(expected)
+  })
+})
 
 describe('validateRawText', () => {
   beforeEach(() => { })
@@ -43,10 +66,10 @@ describe('validateRawText', () => {
 
     const expected_valids = [
       'سلام',
-      'اینجا',
+      'اینجا.',
       'نقطه داشت',
       'نیم‌فاصله',
-      'آخرش نقطه دارد',
+      'آخرش نقطه دارد.',
       'واقعا؟!',
       'چندتا تب بزینم تا خوب بشویم',
       'اسپیس‌های زیاد!',

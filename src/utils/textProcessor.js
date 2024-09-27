@@ -8,7 +8,13 @@ export function validateRawText(rawText) {
 
 // private functions
 function splitStringIntoArray(str) {
-  return str.split(/\s*\.\s*|\s*\n\s*/)
+  const sentences = str.replace(/\s*([.!?;؛؟]+)\s*/g, '$1\n').split(/\n/)
+
+  if (sentences[sentences.length - 1] === '') {
+    sentences.pop()
+  }
+
+  return sentences
 }
 
 function runPipelines(pool) {
@@ -25,3 +31,8 @@ function runPipelines(pool) {
   }
 }
 
+// eslint-disable-next-line no-undef
+if (process.env.NODE_ENV === 'test') {
+  // eslint-disable-next-line no-undef
+  module.exports.splitStringIntoArray = splitStringIntoArray
+}
