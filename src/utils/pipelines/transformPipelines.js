@@ -54,15 +54,31 @@ export function transformArabicToPersian(sentences) {
 }
 
 export function tranformSpaceToZwnj(sentences) {
-  return sentences.map((sentence) => starkStringHalfSpace(sentence))
+  return sentences.map((sentence) => halfSpace(sentence))
 }
 
-// temporary fix for halfSpace to add support for ها
-function starkStringHalfSpace(value) {
-  const existingHalfSpaceResult = starkString(value).halfSpace().toString()
-
-  // Zwnj for ها
-  const zwnj = '\u200C'
-  const haRegex = new RegExp(/ (های?ی?)/g)
-  return (existingHalfSpaceResult.replace(haRegex, `${zwnj}$1`))
+/**
+ * The halfSpace function is an improved version of the halfSpace function from the
+ * persian-tools project (https://github.com/persian-tools/persian-tools)
+ *
+ * Replace halfSpace in string(Zero-width non-joiner)
+ *
+ * @method halfSpace
+ * @return clean entered persian string
+ * @param str
+ */
+function halfSpace(str) {
+  return str
+    .replace(/((\s|^)ن?می)\u0020/g, '$1\u200c')
+    .replace(/((\s|^)بی)\u0020/g, '$1\u200c')
+    .replace(/([هی])\u0020((ام|ات|اش|ای|اید|ایم|اند)(?:$|[ ،؛:»؟!)]))/g, '$1\u200c$2')
+    // remove space before ها if previous letter doesn't join
+    .replace(/([ادذرزژو])\u0020(ها(ی)?(?:$|[ ،؛:»؟!)]))/g, '$1$2')
+    .replace(/\u0020(ها(ی)?(?:$|[ ،؛:»؟!)]))/g, '\u200c$1')
+    // remove space before تر if previous letter doesn't join
+    .replace(/([ادذرزژو])\u0020(تر((ی)|(ین))?(?:$|[ ،؛:»؟!)]))/g, '$1$2')
+    .replace(/\u0020(تر((ی)|(ین))?(?:$|[ ،؛:»؟!)]))/g, '\u200c$1')
+    // remove space before ها if previous letter doesn't join
+    .replace(/([ادذرزژو])\u0020((هایی|هایم|هایت|هایش|هایمان|هایتان|هایشان)(?:$|[ ،؛:»؟!)]))/g, '$1$2')
+    .replace(/\u0020((هایی|هایم|هایت|هایش|هایمان|هایتان|هایشان)(?:$|[ ،؛:»؟!)]))/g, '\u200c$1')
 }
