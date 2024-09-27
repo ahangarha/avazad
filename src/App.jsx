@@ -189,7 +189,7 @@ function App() {
         </div>
 
         <footer className="bg-black/30 text-slate-400 text-center text-sm px-4 py-4">
-          <a href="https://framagit.org/ahangarha/mcv-bulk-text/" className="underline" target="_blank">کد منبع</a>
+          <a href="https://framagit.org/ahangarha/avazad/" className="underline" target="_blank">کد منبع</a>
             &nbsp;
             تحت پروانهٔ AGPL 3.0
         </footer>
