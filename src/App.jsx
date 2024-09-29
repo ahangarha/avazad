@@ -140,7 +140,8 @@ function App() {
   }, [batches])
 
   function emptyBatches() {
-    setBatches([])
+    const confirmed = window.confirm('دسته‌ها برای همیشه پاک شوند؟')
+    if (confirmed) setBatches([])
   }
 
   return (
