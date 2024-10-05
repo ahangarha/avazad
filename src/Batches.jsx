@@ -11,8 +11,14 @@ const Batch = PropTypes.shape({
 
 function Batches({ batches }) {
   return(
-    <div className="flex flex-col gap-4 text-sm text-slate-400 overflow-auto">
-      {batches.map((batch) => <SingleBatch batch={batch} key={batch.id} />)}
+    <div className="flex flex-col gap-4 text-sm text-slate-400 overflow-auto min-h-48">
+      {!batches.length ? (
+        <div className="p-8 text-center">
+          هنوز دسته‌ای ساخته نشده!
+        </div>
+      ) : (
+        batches.map((batch) => <SingleBatch batch={batch} key={batch.id} />)
+      )}
     </div>
   )
 }
